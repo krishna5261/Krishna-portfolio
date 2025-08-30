@@ -16,6 +16,21 @@ body {
   color: var(--text-color);
   font-family: 'Inter', sans-serif;
 }
+/* Hide desktop nav + show hamburger on small screens */
+@media (max-width: 768px) {
+  .nav-desktop {
+    display: none !important;
+  }
+  .menu-toggle {
+    display: block !important;
+  }
+}
+
+/* Default: show desktop nav, hide hamburger */
+.menu-toggle {
+  display: none;
+}
+
 
 
 

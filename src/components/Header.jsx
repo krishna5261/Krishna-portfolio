@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { FaLinkedin, FaGithub, FaEnvelope } from "react-icons/fa";
+import {
+  FaLinkedin,
+  FaGithub,
+  FaEnvelope,
+  FaBars,
+  FaTimes,
+} from "react-icons/fa";
 
 const socials = [
   {
@@ -14,6 +20,7 @@ const socials = [
 export default function Header() {
   const [hidden, setHidden] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   // Hide header on scroll down, show on scroll up
   useEffect(() => {
@@ -35,6 +42,7 @@ export default function Header() {
 
   const scrollToSection = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    setMenuOpen(false); // close menu after click on mobile
   };
 
   return (
@@ -56,8 +64,15 @@ export default function Header() {
         zIndex: 50,
       }}
     >
-      {/* Left navigation */}
-      <nav style={{ display: "flex", gap: "2rem", fontWeight: "600" }}>
+
+      <nav
+        className="nav-desktop"
+        style={{
+          display: "flex",
+          gap: "2rem",
+          fontWeight: "600",
+        }}
+      >
         {navLinks.map((link, i) => (
           <motion.span
             key={i}
@@ -70,9 +85,9 @@ export default function Header() {
         ))}
       </nav>
 
-      {/* Right social icons */}
+
       <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-        <div style={{ display: "flex", gap: "1rem" }}>
+        <div className="socials" style={{ display: "flex", gap: "1rem" }}>
           {socials.map((s, i) => (
             <motion.a
               key={i}
@@ -90,7 +105,49 @@ export default function Header() {
             </motion.a>
           ))}
         </div>
+
+        <div
+          className="menu-toggle"
+          onClick={() => setMenuOpen(!menuOpen)}
+          style={{ cursor: "pointer" }}
+        >
+          {menuOpen ? <FaTimes size={22} /> : <FaBars size={22} />}
+        </div>
       </div>
+
+      {menuOpen && (
+        <motion.nav
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="nav-mobile"
+          style={{
+            position: "absolute",
+            top: "64px",
+            right: "1rem",
+            background: "rgba(255,255,255,0.9)",
+            backdropFilter: "blur(10px)",
+            borderRadius: "8px",
+            padding: "1rem",
+            display: "flex",
+            flexDirection: "column",
+            gap: "1rem",
+            fontWeight: "600",
+          }}
+        >
+          {navLinks.map((link, i) => (
+            <span
+              key={i}
+              whileHover={{ scale: 1.1, x: 6, color: "#0077ff"}}
+              whileTap={{ scale: 0.95 }}
+              style={{ cursor: "pointer" }}
+              onClick={() => scrollToSection(link.id)}
+            >
+              {link.name}
+            </span>
+          ))}
+        </motion.nav>
+      )}
     </motion.header>
   );
 }
+

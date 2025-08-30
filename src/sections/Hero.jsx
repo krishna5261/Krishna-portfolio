@@ -101,7 +101,7 @@ export default function Hero() {
         }}
       >
         <img
-          src="/images/photo.jpg"
+          src="/images/K_photo.jpg"
           alt="Krishna Tiwari"
           style={{
             width: "100%",

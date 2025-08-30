@@ -9,7 +9,7 @@ const milestones = [
     desc: "Madhav Institute of Technology and Science, Gwalior",
   },
   {
-    year: "2019 – 2021",
+    year: "2020 – 2021",
     title: "Higher Secondary",
     desc: "Saint John's Higher Secondary School, Gwalior",
   },
